@@ -7,6 +7,7 @@ const props = defineProps({
 })
 
 const resolving = ref(false)
+const showNote = ref(false)
 const note = ref('')
 
 const severityColors = {
@@ -25,6 +26,8 @@ async function handleResolve() {
   resolving.value = true
   try {
     await props.onResolve(props.alert.id, note.value)
+    note.value = ''
+    showNote.value = false
   } finally {
     resolving.value = false
   }
@@ -64,8 +67,8 @@ function formatDate(d) {
       </div>
       <div v-if="!alert.resolved" class="flex-shrink-0">
         <button
-          v-if="!note"
-          @click="note = ''"
+          v-if="!showNote"
+          @click="showNote = true"
           class="text-xs px-3 py-1.5 rounded-lg bg-green-500/10 text-green-400 hover:bg-green-500/20 transition-colors"
         >
           Resolve
@@ -84,7 +87,7 @@ function formatDate(d) {
             <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
           </button>
           <button
-            @click="note = ''"
+            @click="showNote = false"
             class="text-xs px-2 py-1 rounded bg-slate-600 text-slate-300 hover:bg-slate-500"
           >
             <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>

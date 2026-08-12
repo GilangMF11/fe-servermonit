@@ -8,6 +8,7 @@ const props = defineProps({
   min: { type: Number, default: 0 },
   max: { type: Number, default: 100 },
   loading: { type: Boolean, default: false },
+  stale: { type: Boolean, default: false },
   thresholds: { type: Array, default: () => [] },
 })
 
@@ -49,11 +50,11 @@ const needle = computed(() => polar(cx, cy, r - sw / 2 - 1, valueAngle.value))
 </script>
 
 <template>
-  <div class="bg-slate-800/80 rounded-2xl ring-1 ring-slate-700/50 overflow-hidden flex items-center gap-2 sm:gap-3 p-3 sm:p-4">
+  <div :class="['bg-slate-800/80 rounded-2xl ring-1 overflow-hidden flex items-center gap-2 sm:gap-3 p-3 sm:p-4', stale ? 'ring-red-500/40 bg-red-500/5' : 'ring-slate-700/50']">
     <svg :viewBox="`0 0 ${viewW} ${viewH}`" class="w-28 sm:w-36 lg:w-40 flex-shrink-0" preserveAspectRatio="xMidYMid meet">
       <path :d="bgPath" fill="none" :stroke="loading ? '#334155' : '#1e293b'" :stroke-width="sw" stroke-linecap="round" />
 
-      <path v-if="percent > 0 && !loading"
+      <path v-if="percent > 0 && !loading && !stale"
         :d="valuePath"
         fill="none"
         :stroke="gaugeColor"
@@ -62,7 +63,7 @@ const needle = computed(() => polar(cx, cy, r - sw / 2 - 1, valueAngle.value))
         class="transition-all duration-700 ease-out"
       />
 
-      <line v-if="!loading"
+      <line v-if="!loading && !stale"
         :x1="cx" :y1="cy"
         :x2="needle.x" :y2="needle.y"
         :stroke="gaugeColor"
@@ -70,7 +71,9 @@ const needle = computed(() => polar(cx, cy, r - sw / 2 - 1, valueAngle.value))
         stroke-linecap="round"
         class="transition-all duration-700 ease-out"
       />
-      <circle v-if="!loading" :cx="cx" :cy="cy" r="4" fill="#fff" />
+      <circle v-if="!loading && !stale" :cx="cx" :cy="cy" r="4" fill="#fff" />
+
+      <text v-if="stale" :x="cx - 8" :y="cy - 12" text-anchor="end" fill="#ef4444" font-size="11" font-weight="bold">OFFLINE</text>
 
       <text x="12" y="118" text-anchor="start" class="fill-slate-500" font-size="9">{{ min }}{{ unit }}</text>
       <text :x="cx + r" y="118" text-anchor="end" class="fill-slate-500" font-size="9">{{ max }}{{ unit }}</text>
@@ -79,6 +82,10 @@ const needle = computed(() => polar(cx, cy, r - sw / 2 - 1, valueAngle.value))
     <div class="min-w-0 flex-1 text-right">
       <template v-if="loading">
         <div class="h-8 sm:h-10 w-16 sm:w-20 bg-slate-700/50 rounded-lg animate-pulse ml-auto" />
+      </template>
+      <template v-else-if="stale">
+        <p class="text-lg sm:text-xl font-bold text-red-400">--</p>
+        <p class="text-xs sm:text-sm font-medium text-red-500/70 mt-0.5">No data</p>
       </template>
       <template v-else>
         <p :class="['text-xl sm:text-2xl lg:text-3xl font-bold tracking-tight tabular-nums leading-none', gaugeColor ? '' : 'text-white']" :style="{ color: gaugeColor }">

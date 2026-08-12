@@ -57,6 +57,13 @@ async function loadSystem() {
   }
 }
 
+const STALE_SEC = 45
+
+const sensorStale = computed(() => {
+  if (!sensorData.value?.recorded_at) return false
+  return (Date.now() - new Date(sensorData.value.recorded_at).getTime()) / 1000 > STALE_SEC
+})
+
 const chartLabels = computed(() => buffer.value.map(d => {
   const t = new Date(d.recorded_at)
   return t.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })
@@ -144,6 +151,7 @@ function overallColor(s) {
         unit="°C"
         :min="0" :max="50"
         :loading="loadingSensor"
+        :stale="sensorStale"
         :thresholds="[{ value: 28, color: '#f59e0b' }, { value: 35, color: '#ef4444' }]"
       />
       <GaugeCard
@@ -152,6 +160,7 @@ function overallColor(s) {
         unit="%"
         :min="0" :max="100"
         :loading="loadingSensor"
+        :stale="sensorStale"
         :thresholds="[{ value: 80, color: '#f59e0b' }]"
       />
       <GaugeCard
@@ -160,6 +169,7 @@ function overallColor(s) {
         unit="ppm"
         :min="0" :max="200"
         :loading="loadingSensor"
+        :stale="sensorStale"
         :thresholds="[{ value: 35, color: '#f59e0b' }, { value: 100, color: '#ef4444' }]"
       />
     </div>
