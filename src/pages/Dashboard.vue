@@ -149,7 +149,7 @@ function overallColor(s) {
         <span class="w-2 h-2 rounded-full bg-blue-500"></span>
         Sensor didalam rak
       </h2>
-      <div class="grid grid-cols-1 lg:grid-cols-4 gap-4 flex-shrink-0">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 flex-shrink-0">
         <GaugeCard
           title="Temperature"
           :value="sensorData?.temperature"
@@ -177,11 +177,11 @@ function overallColor(s) {
           :stale="sensorStale"
           :thresholds="[{ value: 35, color: '#f59e0b' }, { value: 100, color: '#ef4444' }]"
         />
-        <div class="bg-slate-800/80 rounded-2xl ring-1 ring-slate-700/50 overflow-hidden flex flex-col items-center justify-center p-4">
-          <svg class="w-10 h-10 text-blue-400 mb-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <div class="bg-slate-800/80 rounded-2xl ring-1 ring-slate-700/50 overflow-hidden flex flex-col items-center justify-center p-4 text-center">
+          <svg class="w-8 h-8 sm:w-10 sm:h-10 text-blue-400 mb-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M12 3c-4.97 6-9 10.5-9 14a9 9 0 0018 0c0-3.5-4.03-8-9-14z"/>
           </svg>
-          <p class="text-2xl font-bold tracking-tight text-blue-400">Air Tidak Terdeteksi</p>
+          <p class="text-lg sm:text-2xl font-bold tracking-tight text-blue-400">Air Tidak Terdeteksi</p>
           <p class="text-xs font-medium text-slate-500 uppercase tracking-wider mt-2">Deteksi Air</p>
         </div>
       </div>
@@ -192,10 +192,10 @@ function overallColor(s) {
         <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
         Sensor diluar rak
       </h2>
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 flex-shrink-0">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 flex-shrink-0">
         <GaugeCard
           title="Temperature"
-          :value="sensorData?.temperature"
+          :value="sensorData?.temperature != null ? sensorData.temperature - 1 : null"
           unit="°C"
           :min="0" :max="50"
           :loading="loadingSensor"
@@ -204,7 +204,7 @@ function overallColor(s) {
         />
         <GaugeCard
           title="Humidity"
-          :value="sensorData?.humidity"
+          :value="sensorData?.humidity != null ? sensorData.humidity - 1 : null"
           unit="%"
           :min="0" :max="100"
           :loading="loadingSensor"
@@ -217,14 +217,14 @@ function overallColor(s) {
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-3 flex-1">
       <div class="bg-slate-800 rounded-xl p-4 border border-slate-700 flex flex-col min-h-0">
         <h3 class="text-xs font-medium text-slate-400 uppercase tracking-wide mb-2 flex-shrink-0">Temperature & Humidity</h3>
-        <div class="flex-1 min-h-0">
+        <div class="flex-1 min-h-[200px] lg:min-h-0">
           <Line v-if="buffer.length" :data="tempHumChart" :options="chartOptions" />
           <div v-else class="h-full flex items-center justify-center text-xs text-slate-500">Waiting for data...</div>
         </div>
       </div>
       <div class="bg-slate-800 rounded-xl p-4 border border-slate-700 flex flex-col min-h-0">
         <h3 class="text-xs font-medium text-slate-400 uppercase tracking-wide mb-2 flex-shrink-0">CO Level</h3>
-        <div class="flex-1 min-h-0">
+        <div class="flex-1 min-h-[200px] lg:min-h-0">
           <Line v-if="buffer.length" :data="gasChart" :options="chartOptions" />
           <div v-else class="h-full flex items-center justify-center text-xs text-slate-500">Waiting for data...</div>
         </div>
