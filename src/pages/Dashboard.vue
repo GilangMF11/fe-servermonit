@@ -144,7 +144,7 @@ function overallColor(s) {
 
 <template>
   <div class="space-y-4 min-h-full flex flex-col">
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 flex-shrink-0">
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-4 flex-shrink-0">
       <GaugeCard
         title="Temperature"
         :value="sensorData?.temperature"
@@ -172,6 +172,13 @@ function overallColor(s) {
         :stale="sensorStale"
         :thresholds="[{ value: 35, color: '#f59e0b' }, { value: 100, color: '#ef4444' }]"
       />
+      <div class="bg-slate-800/80 rounded-2xl ring-1 ring-slate-700/50 overflow-hidden flex flex-col items-center justify-center p-4">
+        <svg class="w-10 h-10 text-blue-400 mb-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 3c-4.97 6-9 10.5-9 14a9 9 0 0018 0c0-3.5-4.03-8-9-14z"/>
+        </svg>
+        <p class="text-2xl font-bold tracking-tight text-blue-400">Air Tidak Terdeteksi</p>
+        <p class="text-xs font-medium text-slate-500 uppercase tracking-wider mt-2">Deteksi Air</p>
+      </div>
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-3 flex-1">
