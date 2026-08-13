@@ -192,7 +192,7 @@ function overallColor(s) {
         <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
         Sensor diluar rak
       </h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 flex-shrink-0">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 flex-shrink-0">
         <GaugeCard
           title="Temperature"
           :value="sensorData?.temperature != null ? sensorData.temperature - 1 : null"
@@ -210,6 +210,49 @@ function overallColor(s) {
           :loading="loadingSensor"
           :stale="sensorStale"
           :thresholds="[{ value: 80, color: '#f59e0b' }]"
+        />
+        <div class="bg-slate-800/80 rounded-2xl ring-1 ring-slate-700/50 flex flex-col items-center justify-center p-4 text-center">
+          <div class="relative mb-3">
+            <svg class="w-10 h-10 sm:w-12 sm:h-12 text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+            </svg>
+          </div>
+          <div class="flex items-center gap-2 mb-1">
+            <span class="w-2.5 h-2.5 rounded-full bg-green-500"></span>
+            <span class="text-lg sm:text-xl font-bold text-green-400">Tidak Terdeteksi</span>
+          </div>
+          <p class="text-xs font-medium text-slate-500 uppercase tracking-wider mt-1">Getaran</p>
+        </div>
+        <div class="bg-slate-800/80 rounded-2xl ring-1 ring-slate-700/50 flex flex-col items-center justify-center p-4 text-center">
+          <div class="relative mb-3">
+            <svg class="w-10 h-10 sm:w-12 sm:h-12 text-orange-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15.362 5.214A8.252 8.252 0 0112 21 8.25 8.25 0 016.038 7.048 8.287 8.287 0 009 9.6a8.983 8.983 0 013.361-6.867 8.21 8.21 0 003 2.48z"/>
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 18a3.75 3.75 0 00.495-7.467 5.99 5.99 0 00-1.925 3.546 5.974 5.974 0 01-2.133-1A3.75 3.75 0 0012 18z"/>
+            </svg>
+          </div>
+          <div class="flex items-center gap-2 mb-1">
+            <span class="w-2.5 h-2.5 rounded-full bg-green-500"></span>
+            <span class="text-lg sm:text-xl font-bold text-green-400">Aman</span>
+          </div>
+          <p class="text-xs font-medium text-slate-500 uppercase tracking-wider mt-1">Api</p>
+        </div>
+        <GaugeCard
+          title="Tekanan Udara"
+          :value="null"
+          unit="hPa"
+          :min="800" :max="1200"
+          :loading="false"
+          placeholder="N/A"
+          :thresholds="[{ value: 1000, color: '#22d3ee' }]"
+        />
+        <GaugeCard
+          title="Ampere"
+          :value="null"
+          unit="A"
+          :min="0" :max="20"
+          :loading="false"
+          placeholder="N/A"
+          :thresholds="[{ value: 10, color: '#f59e0b' }, { value: 16, color: '#ef4444' }]"
         />
       </div>
     </div>

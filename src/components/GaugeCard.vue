@@ -9,6 +9,7 @@ const props = defineProps({
   max: { type: Number, default: 100 },
   loading: { type: Boolean, default: false },
   stale: { type: Boolean, default: false },
+  placeholder: { type: String, default: '--' },
   thresholds: { type: Array, default: () => [] },
 })
 
@@ -89,7 +90,7 @@ const needle = computed(() => polar(cx, cy, r - sw / 2 - 1, valueAngle.value))
       </template>
       <template v-else>
         <p :class="['text-xl sm:text-2xl lg:text-3xl font-bold tracking-tight tabular-nums leading-none', gaugeColor ? '' : 'text-white']" :style="{ color: gaugeColor }">
-          {{ value ?? '--' }}
+          {{ value ?? placeholder }}
         </p>
         <p class="text-xs sm:text-sm font-medium text-slate-400 mt-0.5">{{ unit }}</p>
       </template>
