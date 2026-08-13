@@ -147,7 +147,7 @@ function overallColor(s) {
     <div>
       <h2 class="text-sm font-semibold text-slate-300 mb-3 flex items-center gap-2">
         <span class="w-2 h-2 rounded-full bg-blue-500"></span>
-        Sensor didalam rak
+        Sensor inside rack
       </h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 flex-shrink-0">
         <GaugeCard
@@ -181,8 +181,8 @@ function overallColor(s) {
           <svg class="w-8 h-8 sm:w-10 sm:h-10 text-blue-400 mb-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M12 3c-4.97 6-9 10.5-9 14a9 9 0 0018 0c0-3.5-4.03-8-9-14z"/>
           </svg>
-          <p class="text-lg sm:text-2xl font-bold tracking-tight text-blue-400">Air Tidak Terdeteksi</p>
-          <p class="text-xs font-medium text-slate-500 uppercase tracking-wider mt-2">Deteksi Air</p>
+          <p class="text-lg sm:text-2xl font-bold tracking-tight text-blue-400">No Water Detected</p>
+          <p class="text-xs font-medium text-slate-500 uppercase tracking-wider mt-2">Water Detection</p>
         </div>
       </div>
     </div>
@@ -190,7 +190,7 @@ function overallColor(s) {
     <div>
       <h2 class="text-sm font-semibold text-slate-300 mb-3 flex items-center gap-2">
         <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-        Sensor diluar rak
+        Sensor outside rack
       </h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 flex-shrink-0">
         <GaugeCard
@@ -219,9 +219,9 @@ function overallColor(s) {
           </div>
           <div class="flex items-center gap-2 mb-1">
             <span class="w-2.5 h-2.5 rounded-full bg-green-500"></span>
-            <span class="text-lg sm:text-xl font-bold text-green-400">Tidak Terdeteksi</span>
+            <span class="text-lg sm:text-xl font-bold text-green-400">Not Detected</span>
           </div>
-          <p class="text-xs font-medium text-slate-500 uppercase tracking-wider mt-1">Getaran</p>
+          <p class="text-xs font-medium text-slate-500 uppercase tracking-wider mt-1">Vibration</p>
         </div>
         <div class="bg-slate-800/80 rounded-2xl ring-1 ring-slate-700/50 flex flex-col items-center justify-center p-4 text-center">
           <div class="relative mb-3">
@@ -232,12 +232,12 @@ function overallColor(s) {
           </div>
           <div class="flex items-center gap-2 mb-1">
             <span class="w-2.5 h-2.5 rounded-full bg-green-500"></span>
-            <span class="text-lg sm:text-xl font-bold text-green-400">Aman</span>
+            <span class="text-lg sm:text-xl font-bold text-green-400">Safe</span>
           </div>
-          <p class="text-xs font-medium text-slate-500 uppercase tracking-wider mt-1">Api</p>
+          <p class="text-xs font-medium text-slate-500 uppercase tracking-wider mt-1">Fire</p>
         </div>
         <GaugeCard
-          title="Tekanan Udara"
+          title="Air Pressure"
           :value="null"
           unit="hPa"
           :min="800" :max="1200"
